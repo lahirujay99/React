@@ -291,5 +291,5 @@ const updatedBook = bookAfterAdd
     pages: a.pages,
   }))
   .slice()
-  .sort((a, b) => a.id - b.id); //accending order
+  .sort((a, b) => b.id - a.id); //accending order
 updatedBook;
