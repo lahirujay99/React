@@ -144,12 +144,12 @@ function getBook(id) {
 }
 
 // object destructuring...
-const book = getBook(2);
+const book = getBook(1);
 
 // const title = book.title;
 // const author = book.author;
 
-const { title, author, genres } = book;
+const { title, author, genres, pages, publicationDate } = book;
 console.log(title, author);
 
 //array destructuring
@@ -160,5 +160,21 @@ console.log(title, author);
 const [primaryGenre, secondryGenre, ...other] = genres; // [0,1,2,3...]
 console.log(primaryGenre, secondryGenre, other);
 
+//spread/Rest operator
 const newGenres = [...genres, "lahiru"];
 newGenres;
+
+const updateBook = {
+  ...book,
+  moviePublicationDate: "2022/2/2", // adding a new property
+  pages: 1210, //overriding existing property
+};
+updateBook;
+
+//template literal
+const exampl = `${title} is a ${pages}-pages book an it's published on ${
+  publicationDate.split("-")[0]
+}}`;
+console.log(exampl);
+
+// ternary operators
