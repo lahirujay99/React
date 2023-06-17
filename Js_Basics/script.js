@@ -143,13 +143,22 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
+/*
 // object destructuring...
-const book = getBook(1);
+const book = getBook(2);
 
 // const title = book.title;
 // const author = book.author;
 
-const { title, author, genres, pages, publicationDate } = book;
+const {
+  title,
+  author,
+  genres,
+  pages,
+  publicationDate,
+  hasMovieAdaptation,
+  translations,
+} = book;
 console.log(title, author);
 
 //array destructuring
@@ -174,7 +183,52 @@ updateBook;
 //template literal
 const exampl = `${title} is a ${pages}-pages book an it's published on ${
   publicationDate.split("-")[0]
-}}`;
+}, the book has been ${hasMovieAdaptation ? "" : "not"} adapted as a movie}`;
 console.log(exampl);
 
 // ternary operators
+const result =
+  pages > 1000 ? "Pages greater than 1000" : "pages less than 1000";
+console.log(result);
+
+//arrow functions
+const getDate = (d) => d.split("-")[0];
+console.log(getDate(publicationDate));
+
+//short circutting
+console.log(hasMovieAdaptation && "this book has a movie"); // first val os true the second one return
+console.log(false && "true");
+
+//falsy values = false, 0, undefined, ''
+console.log("lahiru" && "something"); // if first val true second val return
+console.log(0 && "lahiru"); //if first val false first val return
+
+const translationHave = translations.spanish || "Not have translation";
+console.log(translationHave);
+
+const count = book.reviews.librarything.reviewsCount ?? "no reviews"; //this will only return second value when there has null or undefined
+count;
+
+function getTotalReviewCount(book) {
+  const goodReadCount = book.reviews?.goodreads?.reviewsCount ?? 0;
+  const librarythingCount = book.reviews?.librarything?.reviewsCount ?? 0;
+  librarythingCount;
+  return goodReadCount + librarythingCount;
+}
+
+console.log(getTotalReviewCount(getBook(3)));
+*/
+
+// array map method
+const resultsArr = [12, 3, 4, 5, 6, 7, 8, 44].map((el) => el * 2);
+resultsArr;
+
+const books = getBooks();
+const bookTitles = books.map((title) => title.title);
+bookTitles;
+
+const titleAndAuthor = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+})); // use paranthesis instead of using return
+titleAndAuthor;
