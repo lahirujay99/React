@@ -232,3 +232,14 @@ const titleAndAuthor = books.map((book) => ({
   author: book.author,
 })); // use paranthesis instead of using return
 titleAndAuthor;
+
+//array filter method
+const longBooks = books
+  .filter((books) => books.pages > 500)
+  .filter((books) => books.hasMovieAdaptation);
+longBooks;
+
+const adventureBooks = books
+  .filter((books) => books.genres.includes("adventure"))
+  .map((books) => books.title);
+adventureBooks;
