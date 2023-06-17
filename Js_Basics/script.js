@@ -246,3 +246,50 @@ adventureBooks;
 
 const allPages = books.reduce((acc, books) => acc + books.pages, 0);
 allPages;
+
+//array sort method
+const arr = [1, 2, 6, 3, 7, 45245, 8, 322, 6].sort((a, b) => a - b); // sort is a mutate method this sort original array
+arr;
+
+//if we want the sorting result do not effect the oroginal array we can use slice method
+const array = [
+  1, 2, 3553, 34, 2, 4, 5, 5, 63, 42, 14, 14, 13, 4, 14, 34, 14, 15, 1, 6, 6,
+]
+  .slice()
+  .sort((a, b) => a - b);
+array;
+
+const sortedByPages = books
+  .sort((a, b) => b.pages - a.pages)
+  .map((r) => ({
+    title: r.title,
+    pages: r.pages,
+  }));
+sortedByPages;
+
+//work with immutable array
+const newBook = {
+  id: 6,
+  title: "Harry Potter",
+  author: "J. K. Rowling",
+};
+const bookAfterAdd = [...books, newBook];
+bookAfterAdd;
+
+//deleting a book object from array
+const deletedArray = bookAfterAdd
+  .filter((book) => book.id !== 3)
+  .map((a) => ({ id: a.id, title: a.title }));
+deletedArray;
+
+//update book
+const updatedBook = bookAfterAdd
+  .map((book) => (book.id === 3 ? { ...book, pages: 33333 } : book))
+  .map((a) => ({
+    title: a.title,
+    id: a.id,
+    pages: a.pages,
+  }))
+  .slice()
+  .sort((a, b) => b.id - a.id); //accending order
+updatedBook;
