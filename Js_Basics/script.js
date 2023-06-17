@@ -219,6 +219,7 @@ function getTotalReviewCount(book) {
 console.log(getTotalReviewCount(getBook(3)));
 */
 
+/*
 // array map method
 const resultsArr = [12, 3, 4, 5, 6, 7, 8, 44].map((el) => el * 2);
 resultsArr;
@@ -291,5 +292,29 @@ const updatedBook = bookAfterAdd
     pages: a.pages,
   }))
   .slice()
-  .sort((a, b) => b.id - a.id); //accending order
+  .sort((a, b) => b.id - a.id); //decending order
 updatedBook;
+
+*/
+
+/*
+//promises
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+*/
+
+//async await
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  const filteredData = data
+    .map((data) => ({
+      id: data.id,
+      title: data.title,
+    }))
+    .filter((a) => a.id > 2);
+  console.log(filteredData);
+}
+
+getTodos();
