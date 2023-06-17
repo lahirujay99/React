@@ -149,7 +149,8 @@ const book = getBook(1);
 // const title = book.title;
 // const author = book.author;
 
-const { title, author, genres, pages, publicationDate } = book;
+const { title, author, genres, pages, publicationDate, hasMovieAdaptation } =
+  book;
 console.log(title, author);
 
 //array destructuring
@@ -174,7 +175,10 @@ updateBook;
 //template literal
 const exampl = `${title} is a ${pages}-pages book an it's published on ${
   publicationDate.split("-")[0]
-}}`;
+}, the book has been ${hasMovieAdaptation ? "" : "not"} adapted as a movie}`;
 console.log(exampl);
 
 // ternary operators
+const result =
+  pages > 1000 ? "Pages greater than 1000" : "pages less than 1000";
+console.log(result);
