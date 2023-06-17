@@ -266,3 +266,30 @@ const sortedByPages = books
     pages: r.pages,
   }));
 sortedByPages;
+
+//work with immutable array
+const newBook = {
+  id: 6,
+  title: "Harry Potter",
+  author: "J. K. Rowling",
+};
+const bookAfterAdd = [...books, newBook];
+bookAfterAdd;
+
+//deleting a book object from array
+const deletedArray = bookAfterAdd
+  .filter((book) => book.id !== 3)
+  .map((a) => ({ id: a.id, title: a.title }));
+deletedArray;
+
+//update book
+const updatedBook = bookAfterAdd
+  .map((book) => (book.id === 3 ? { ...book, pages: 33333 } : book))
+  .map((a) => ({
+    title: a.title,
+    id: a.id,
+    pages: a.pages,
+  }))
+  .slice()
+  .sort((a, b) => a.id - b.id); //accending order
+updatedBook;
