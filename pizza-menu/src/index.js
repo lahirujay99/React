@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -67,16 +67,65 @@ function Header() {
 }
 
 function Menu() {
+  const ob = pizzaData.map((a) => ({
+    name: a.name,
+    ingredients: a.ingredients,
+    photoName: a.photoName,
+    price: a.price,
+  }));
   return (
-    <div>
+    <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-    </div>
+
+      {/* <div>
+        {pizzaData.map((pizza) => (
+          <Pizza
+            name={pizza.name}
+            ingredients={pizza.ingredients}
+            photoName={pizza.photoName}
+            price={pizza.price}
+          />
+        ))}
+      </div> */}
+
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
+
+      {/* <Pizza
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={12} // if its not string use this js mode
+      /> */}
+    </main>
   );
 }
 
-function Footer() {
+function Pizza(props) {
+  return (
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <div>
+        <h3>{props.pizzaObj.name} </h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
+    </li>
+  );
+}
+
+function Footer(props) {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(function () {
+    setInterval(function () {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+  }, []);
+
   const hour = new Date().getHours();
   const openHour = 8;
   const closeHour = 18;
@@ -84,22 +133,13 @@ function Footer() {
   const open = isOpen ? "open" : "close";
   return (
     <div>
-      <footer>
-        {new Date().toLocaleTimeString()}. We are Currently {open}.
+      <footer className="footer">
+        {time}. We are Currently {open}.
       </footer>
     </div>
   );
 }
 
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="pizza spinaci" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </div>
-  );
-}
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
