@@ -67,16 +67,11 @@ function Header() {
 }
 
 function Menu() {
-  const ob = pizzaData.map((a) => ({
-    name: a.name,
-    ingredients: a.ingredients,
-    photoName: a.photoName,
-    price: a.price,
-  }));
+  const pizzas = pizzaData;
+  const pizzaCount = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-
       {/* <div>
         {pizzaData.map((pizza) => (
           <Pizza
@@ -88,11 +83,25 @@ function Menu() {
         ))}
       </div> */}
 
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {/* condtional rendering */}
+      {/* {pizzaCount > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )} */}
+
+      {/* take advantage using ternery operator */}
+      {pizzaCount > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        "Currently we are out of stock"
+      )}
 
       {/* <Pizza
         name="Pizza Spinaci"
@@ -128,13 +137,20 @@ function Footer(props) {
 
   const hour = new Date().getHours();
   const openHour = 8;
-  const closeHour = 18;
+  const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  const open = isOpen ? "open" : "close";
+  // const open = isOpen ? "open" : "close";
   return (
     <div>
       <footer className="footer">
-        {time}. We are Currently {open}.
+        {isOpen && (
+          <div className="order">
+            <p>
+              we are open until {closeHour}.00 come visit us or order online
+            </p>
+            <p>{time}</p>
+          </div>
+        )}
       </footer>
     </div>
   );
