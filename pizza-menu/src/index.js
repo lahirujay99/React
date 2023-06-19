@@ -151,7 +151,7 @@ function Footer(props) {
   const openHour = 8;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  // const open = isOpen ? "open" : "close";
+  // const open = isOpen ? "open" : "close"; , can also use this ternery operator
 
   if (!isOpen) return <p>Api dan wahala aye open karanne heta udeta</p>;
 
