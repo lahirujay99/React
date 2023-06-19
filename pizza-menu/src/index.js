@@ -58,7 +58,7 @@ function App() {
 }
 
 function Header() {
-  const s = { color: "red", fontSize: "48px", textTransform: "uppercase" };
+  // const s = { color: "red", fontSize: "48px", textTransform: "uppercase" };
   return (
     <header className="header">
       <h1 style={{}}>Fast React Pizza Co.</h1>
@@ -72,6 +72,7 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+
       {/* <div>
         {pizzaData.map((pizza) => (
           <Pizza
@@ -94,11 +95,19 @@ function Menu() {
 
       {/* take advantage using ternery operator */}
       {pizzaCount > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        // <></> and <React.Fragment></React.Fragment> are same, if we need to use a key in list ten use React.Fragment
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
       ) : (
         "Currently we are out of stock"
       )}
@@ -113,14 +122,17 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
+  // instead using props we can use destructuring. {pizzaObj}
+  // if (pizzaObj.soldOut) return null;
+
   return (
-    <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name} </h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name} </h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? "Sold Out" : pizzaObj.price}</span>
       </div>
     </li>
   );
@@ -140,18 +152,25 @@ function Footer(props) {
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   // const open = isOpen ? "open" : "close";
+
+  if (!isOpen) return <p>Api dan wahala aye open karanne heta udeta</p>;
+
   return (
     <div>
       <footer className="footer">
-        {isOpen && (
-          <div className="order">
-            <p>
-              we are open until {closeHour}.00 come visit us or order online
-            </p>
-            <p>{time}</p>
-          </div>
-        )}
+        {isOpen && <Order closeHour={closeHour} time={time} />}
       </footer>
+    </div>
+  );
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <p>
+        we are open until {props.closeHour}.00 come visit us or order online
+      </p>
+      <p>{props.time}</p>
     </div>
   );
 }
