@@ -46,3 +46,5 @@ export default function PackingList({
     </div>
   );
 }
+
+// if we need to catch the value of select element to that use event.target.value
