@@ -42,5 +42,3 @@ export default function App() {
     </div>
   );
 }
-
-// if we need to catch the value of select element to that use event.target.value
