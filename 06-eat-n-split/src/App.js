@@ -30,15 +30,14 @@ export default function App() {
 
   function handleFriends(newFriend) {
     setFriends((friends) => [...friends, newFriend]);
+    setIsOpen(false);
   }
 
   return (
     <div className="app">
       <div className="sidebar">
         <FriendsList friends={friends} />
-        {isopen && (
-          <FormAddFriend onClick={setIsOpen} onAddFriend={handleFriends} />
-        )}
+        {isopen && <FormAddFriend onAddFriend={handleFriends} />}
         <Button onClick={handleFormOpen}>
           {isopen ? "Close" : "Add Friend"}
         </Button>
@@ -81,7 +80,7 @@ function Friend({ friend }) {
   );
 }
 
-function FormAddFriend({ onAddFriend, onClick }) {
+function FormAddFriend({ onAddFriend }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48?u=499476");
 
@@ -98,7 +97,6 @@ function FormAddFriend({ onAddFriend, onClick }) {
     };
 
     onAddFriend(newFriend);
-    onClick((s) => !s);
     setImage("https://i.pravatar.cc/48?u=499476");
     setName("");
   }
