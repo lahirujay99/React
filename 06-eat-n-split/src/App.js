@@ -21,13 +21,20 @@ const initialFriends = [
 ];
 
 export default function App() {
-  const [select, setSelect] = useState(false);
+  const [isopen, setIsOpen] = useState(false);
+
+  function handleFormOpen() {
+    setIsOpen((show) => !show);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <FriendsList />
-        <FormAddFriend />
-        <Button>Add Friend</Button>
+        {isopen && <FormAddFriend />}
+        <Button onClick={handleFormOpen}>
+          {isopen ? "Close" : "Add Friend"}
+        </Button>
       </div>
       <FormSplitBill />
     </div>
@@ -80,8 +87,12 @@ function FormAddFriend() {
   );
 }
 
-function Button({ children }) {
-  return <button className="button">{children}</button>;
+function Button({ children, onClick }) {
+  return (
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 function FormSplitBill() {
