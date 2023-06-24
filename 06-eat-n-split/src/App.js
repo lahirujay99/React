@@ -23,6 +23,7 @@ const initialFriends = [
 export default function App() {
   const [isopen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState(initialFriends);
+  const [selectedFriend, setSelectedFriend] = useState("");
 
   function handleFormOpen() {
     setIsOpen((show) => !show);
@@ -33,31 +34,35 @@ export default function App() {
     setIsOpen(false);
   }
 
+  function handleSelectedFriend(friend) {
+    setSelectedFriend(friend);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends} />
+        <FriendsList friends={friends} onSelectedF={handleSelectedFriend} />
         {isopen && <FormAddFriend onAddFriend={handleFriends} />}
         <Button onClick={handleFormOpen}>
           {isopen ? "Close" : "Add Friend"}
         </Button>
       </div>
-      <FormSplitBill />
+      <FormSplitBill selectedFriend={selectedFriend} />
     </div>
   );
 }
 
-function FriendsList({ friends }) {
+function FriendsList({ friends, onSelectedF }) {
   return (
     <ul>
       {friends.map((f) => (
-        <Friend friend={f} key={f.id} />
+        <Friend friend={f} key={f.id} onSelectedF={onSelectedF} />
       ))}
     </ul>
   );
 }
 
-function Friend({ friend }) {
+function Friend({ friend, onSelectedF }) {
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
@@ -75,7 +80,7 @@ function Friend({ friend }) {
       {friend.balance === 0 && <p>you and {friend.name} are even</p>}
 
       {/* <button className="button">select</button> */}
-      <Button>Select</Button>
+      <Button onClick={() => onSelectedF(friend)}>Select</Button>
     </li>
   );
 }
@@ -128,10 +133,10 @@ function Button({ children, onClick }) {
   );
 }
 
-function FormSplitBill() {
+function FormSplitBill({ selectedFriend }) {
   return (
     <form className="form-split-bill">
-      <h2>Split bill with X</h2>
+      <h2>Split bill with {selectedFriend.name}</h2>
       <label>💰 Bill Value </label>
       <input type="text" />
       <label>🧒 Your Expenses </label>
