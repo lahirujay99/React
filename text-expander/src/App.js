@@ -39,7 +39,7 @@ function TextExpander({
   collapsedNumWords = 10,
   expandButtonText = "Show more",
   collapseButtonText = "Show less",
-  buttonColor,
+  buttonColor = "#1f09cd",
   expanded = false,
   className,
   children,
@@ -55,6 +55,11 @@ function TextExpander({
   }
 
   const buttonStyle = {
+    background: "none",
+    border: "none",
+    font: "inherit",
+    marginLeft: "6px",
+    cursor: "pointer",
     color: buttonColor,
   };
 
