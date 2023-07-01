@@ -36,7 +36,7 @@ export default function App() {
 }
 
 function TextExpander({
-  collapsedNumWords,
+  collapsedNumWords = 10,
   expandButtonText = "Show more",
   collapseButtonText = "Show less",
   buttonColor,
@@ -46,7 +46,9 @@ function TextExpander({
 }) {
   const [isExpand, setIsExpand] = useState(expanded);
 
-  const displayText = isExpand ? children : "test";
+  const displayText = isExpand
+    ? children
+    : children.split(" ").slice(0, collapsedNumWords).join(" ") + "...";
 
   function handleText() {
     setIsExpand(!isExpand);
