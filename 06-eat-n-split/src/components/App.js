@@ -74,7 +74,7 @@ export default function App() {
         <FormSplitBill
           selectedFriend={selectedFriend}
           onSubmitBill={handleSplitBill}
-          key={selectedFriend.id}
+          key={selectedFriend.id} //reset inserted values when select another friend
         />
       )}
     </div>
