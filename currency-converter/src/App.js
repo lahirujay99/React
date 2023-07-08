@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(3);
   const [currency, setCurrentCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
+  const [convertedVal, setConvertedVal] = useState(0);
 
   function handleValue(val) {
     console.log(val);
@@ -23,9 +24,13 @@ export default function App() {
   useEffect(function () {
     async function convert() {
       const res = await fetch(
-        `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
+        `https://api.frankfurter.app/latest?amount=${value}&from=${currency}&to=${toCurrency}`
       );
+      const data = await res.json();
+      console.log(data.rates[toCurrency]);
+      setConvertedVal(data.rates[toCurrency]);
     }
+    convert();
   }, []);
 
   return (
@@ -53,7 +58,7 @@ export default function App() {
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <p>OUTPUT</p>
+      <p>{convertedVal}</p>
     </div>
   );
 }
