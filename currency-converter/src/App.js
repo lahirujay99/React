@@ -19,15 +19,19 @@ export default function App() {
         const res = await fetch(
           `https://api.frankfurter.app/latest?amount=${value}&from=${currentCurrency}&to=${toCurrency}`
         );
+
         const data = await res.json();
         console.log(data.rates[toCurrency]);
+
         setConvertedVal(data.rates[toCurrency]);
         setIsLoading(false);
       }
+
       if (currentCurrency === toCurrency) return setConvertedVal(value); // this line fixed that error occuring when convert same currency
 
       convert();
     },
+
     [value, currentCurrency, toCurrency]
   );
 
